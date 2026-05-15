@@ -36,6 +36,27 @@ const DashboardPage: FC = () => {
     vehiclePricing[vehicleType] +
     materialPricing[material];
 
+  const bookingPayload = {
+    packageType,
+    vehicle: {
+      type: vehicleType,
+      year,
+      make,
+      model,
+    },
+    tint: {
+      front: frontTint,
+      back: backTint,
+      material,
+    },
+    pricing: {
+      base: basePricing[packageType],
+      vehicleAdjustment: vehiclePricing[vehicleType],
+      materialAdjustment: materialPricing[material],
+      total: totalPrice,
+    },
+  };
+
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
       <Page>
@@ -236,21 +257,6 @@ const DashboardPage: FC = () => {
 
               <hr />
 
-              <p>
-                <strong>Base Package:</strong> $
-                {basePricing[packageType]}
-              </p>
-
-              <p>
-                <strong>Vehicle Adjustment:</strong> $
-                {vehiclePricing[vehicleType]}
-              </p>
-
-              <p>
-                <strong>Material Adjustment:</strong> $
-                {materialPricing[material]}
-              </p>
-
               <h3>Total Estimated Price: ${totalPrice}</h3>
 
               <hr />
@@ -267,24 +273,34 @@ const DashboardPage: FC = () => {
                 </p>
               )}
 
-              {vehicleType === 'SUV' && (
-                <p>
-                  🚙 SUVs typically benefit from enhanced rear heat rejection.
-                </p>
-              )}
-
               {material === 'Ceramic' && (
                 <p>
                   🌡 Ceramic tint provides premium heat rejection and UV
                   protection.
                 </p>
               )}
+            </div>
 
-              {material === 'Carbon' && (
-                <p>
-                  ⚡ Carbon tint offers improved appearance and fade resistance.
-                </p>
-              )}
+            <div
+              style={{
+                marginTop: '24px',
+                padding: '16px',
+                borderRadius: '10px',
+                backgroundColor: '#1e1e1e',
+                color: '#ffffff',
+                overflowX: 'auto',
+              }}
+            >
+              <h3>Generated Booking Payload</h3>
+
+              <pre
+                style={{
+                  whiteSpace: 'pre-wrap',
+                  fontSize: '13px',
+                }}
+              >
+                {JSON.stringify(bookingPayload, null, 2)}
+              </pre>
             </div>
           </div>
         </Page.Content>
