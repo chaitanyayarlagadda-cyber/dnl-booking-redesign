@@ -4,6 +4,7 @@ import '@wix/design-system/styles.global.css';
 
 const DashboardPage: FC = () => {
   const [step, setStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
 
   const [vehicleType, setVehicleType] = useState('Sedan');
   const [year, setYear] = useState('');
@@ -58,6 +59,65 @@ const DashboardPage: FC = () => {
     },
   };
 
+  if (submitted) {
+    return (
+      <WixDesignSystemProvider features={{ newColorsBranding: true }}>
+        <Page>
+          <Page.Header
+            title="Booking Submitted"
+            subtitle="Your tint booking request has been created"
+          />
+
+          <Page.Content>
+            <div
+              style={{
+                maxWidth: '600px',
+                marginTop: '40px',
+                padding: '32px',
+                borderRadius: '16px',
+                backgroundColor: '#f5f5f5',
+              }}
+            >
+              <h1>✅ Booking Submitted Successfully</h1>
+
+              <p>
+                Thank you for booking your tint service with D&L.
+              </p>
+
+              <hr />
+
+              <h3>Booking Summary</h3>
+
+              <p>
+                <strong>Vehicle:</strong>{' '}
+                {year} {make} {model} ({vehicleType})
+              </p>
+
+              <p>
+                <strong>Package:</strong> {packageType}
+              </p>
+
+              <p>
+                <strong>Material:</strong> {material}
+              </p>
+
+              <p>
+                <strong>Total Estimated Price:</strong> ${totalPrice}
+              </p>
+
+              <hr />
+
+              <p>
+                A booking coordinator will contact you shortly to confirm
+                scheduling and installation details.
+              </p>
+            </div>
+          </Page.Content>
+        </Page>
+      </WixDesignSystemProvider>
+    );
+  }
+
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
       <Page>
@@ -77,6 +137,24 @@ const DashboardPage: FC = () => {
             }}
           >
             <h2>Step {step} of 4</h2>
+
+            <div
+              style={{
+                width: '100%',
+                height: '10px',
+                backgroundColor: '#ddd',
+                borderRadius: '10px',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  width: `${(step / 4) * 100}%`,
+                  height: '100%',
+                  backgroundColor: '#000',
+                }}
+              />
+            </div>
 
             {step === 1 && (
               <>
@@ -272,6 +350,22 @@ const DashboardPage: FC = () => {
                     {JSON.stringify(bookingPayload, null, 2)}
                   </pre>
                 </div>
+
+                <button
+                  onClick={() => setSubmitted(true)}
+                  style={{
+                    padding: '14px',
+                    marginTop: '20px',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Complete Booking
+                </button>
               </>
             )}
 
