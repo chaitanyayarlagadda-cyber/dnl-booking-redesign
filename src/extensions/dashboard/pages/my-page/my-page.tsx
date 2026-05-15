@@ -252,6 +252,39 @@ const DashboardPage: FC = () => {
               </p>
 
               <h3>Total Estimated Price: ${totalPrice}</h3>
+
+              <hr />
+
+              {packageType === 'Supreme Lifetime' && (
+                <p>
+                  ✅ Lifetime Warranty Included with Supreme Lifetime Package
+                </p>
+              )}
+
+              {vehicleType === 'Truck' && (
+                <p>
+                  🚚 Trucks may require additional rear glass coverage options.
+                </p>
+              )}
+
+              {vehicleType === 'SUV' && (
+                <p>
+                  🚙 SUVs typically benefit from enhanced rear heat rejection.
+                </p>
+              )}
+
+              {material === 'Ceramic' && (
+                <p>
+                  🌡 Ceramic tint provides premium heat rejection and UV
+                  protection.
+                </p>
+              )}
+
+              {material === 'Carbon' && (
+                <p>
+                  ⚡ Carbon tint offers improved appearance and fade resistance.
+                </p>
+              )}
             </div>
           </div>
         </Page.Content>
