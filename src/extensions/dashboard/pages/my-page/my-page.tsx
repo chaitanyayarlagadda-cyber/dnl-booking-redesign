@@ -12,13 +12,29 @@ const DashboardPage: FC = () => {
   const [material, setMaterial] = useState('Ceramic');
   const [packageType, setPackageType] = useState('Premium');
 
-  const pricingMap: Record<string, number> = {
+  const basePricing: Record<string, number> = {
     Standard: 199,
     Premium: 299,
     'Supreme Lifetime': 499,
   };
 
-  const estimatedPrice = pricingMap[packageType];
+  const vehiclePricing: Record<string, number> = {
+    Sedan: 0,
+    SUV: 50,
+    Truck: 80,
+    Minivan: 60,
+  };
+
+  const materialPricing: Record<string, number> = {
+    Ceramic: 80,
+    Carbon: 40,
+    Dyed: 0,
+  };
+
+  const totalPrice =
+    basePricing[packageType] +
+    vehiclePricing[vehicleType] +
+    materialPricing[material];
 
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
@@ -218,9 +234,24 @@ const DashboardPage: FC = () => {
                 <strong>Material:</strong> {material}
               </p>
 
+              <hr />
+
               <p>
-                <strong>Estimated Price:</strong> ${estimatedPrice}
+                <strong>Base Package:</strong> $
+                {basePricing[packageType]}
               </p>
+
+              <p>
+                <strong>Vehicle Adjustment:</strong> $
+                {vehiclePricing[vehicleType]}
+              </p>
+
+              <p>
+                <strong>Material Adjustment:</strong> $
+                {materialPricing[material]}
+              </p>
+
+              <h3>Total Estimated Price: ${totalPrice}</h3>
             </div>
           </div>
         </Page.Content>
