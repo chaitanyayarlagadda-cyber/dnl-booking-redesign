@@ -10,6 +10,15 @@ const DashboardPage: FC = () => {
   const [frontTint, setFrontTint] = useState('35% Light Dark');
   const [backTint, setBackTint] = useState('5% Dark');
   const [material, setMaterial] = useState('Ceramic');
+  const [packageType, setPackageType] = useState('Premium');
+
+  const pricingMap: Record<string, number> = {
+    Standard: 199,
+    Premium: 299,
+    'Supreme Lifetime': 499,
+  };
+
+  const estimatedPrice = pricingMap[packageType];
 
   return (
     <WixDesignSystemProvider features={{ newColorsBranding: true }}>
@@ -25,10 +34,27 @@ const DashboardPage: FC = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
-              maxWidth: '400px',
+              maxWidth: '420px',
               paddingTop: '24px',
             }}
           >
+            <label>
+              Package Type
+              <select
+                value={packageType}
+                onChange={(e) => setPackageType(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  marginTop: '4px',
+                }}
+              >
+                <option>Standard</option>
+                <option>Premium</option>
+                <option>Supreme Lifetime</option>
+              </select>
+            </label>
+
             <label>
               Vehicle Type
               <select
@@ -172,6 +198,10 @@ const DashboardPage: FC = () => {
               <h3>Booking Summary</h3>
 
               <p>
+                <strong>Package:</strong> {packageType}
+              </p>
+
+              <p>
                 <strong>Vehicle:</strong>{' '}
                 {year} {make} {model} ({vehicleType})
               </p>
@@ -186,6 +216,10 @@ const DashboardPage: FC = () => {
 
               <p>
                 <strong>Material:</strong> {material}
+              </p>
+
+              <p>
+                <strong>Estimated Price:</strong> ${estimatedPrice}
               </p>
             </div>
           </div>
