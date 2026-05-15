@@ -352,7 +352,14 @@ const DashboardPage: FC = () => {
                 </div>
 
                 <button
-                  onClick={() => setSubmitted(true)}
+                  onClick={() => {
+                    localStorage.setItem(
+                      'dnl-booking',
+                      JSON.stringify(bookingPayload)
+                    );
+
+                    setSubmitted(true);
+                  }}
                   style={{
                     padding: '14px',
                     marginTop: '20px',
